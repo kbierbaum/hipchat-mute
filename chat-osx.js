@@ -45,7 +45,7 @@ function showMuteButton(nameBlock, name) {
     muteButton.setAttribute('class', 'atTag'); 
     muteButton.setAttribute('href', 'javascript:void(0)');
     
-    muteButton.setAttribute('onclick', 'mute("' + name + '");');
+    muteButton.setAttribute('onclick', "mute('" + name + "');");
     muteButton.innerHTML = 'Mute';
 
     nameBlock.appendChild(muteButton);
@@ -53,8 +53,9 @@ function showMuteButton(nameBlock, name) {
 }
 
 function mute(displayName) {
-    if($BLOCK_LIST.indexof(displayName) == -1)
+    if($BLOCK_LIST.indexOf(displayName) == -1) {
         $BLOCK_LIST.push(displayName);
+    }
 }
 
 function showUnconfirmedTooltip(obj, messageId) {
@@ -62,5 +63,5 @@ function showUnconfirmedTooltip(obj, messageId) {
         return;
     }
     var html = "<a href='action:resend:"+messageId+"'>This message may not have been sent successfully. Click here to attempt resend.</a>";
-	showTooltip(obj, html);
+    showTooltip(obj, html);
 }
