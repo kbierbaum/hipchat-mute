@@ -39,22 +39,36 @@ function addChatBlock(body, insertOnTop) {
     
 }
 
-function showMuteButton(nameBlock, name) {
+function showMuteButton(nameBlock, displayName) {
 
     var muteButton = document.createElement('a');
     muteButton.setAttribute('class', 'atTag'); 
     muteButton.setAttribute('href', 'javascript:void(0)');
-    
-    muteButton.setAttribute('onclick', "mute('" + name + "');");
     muteButton.innerHTML = 'Mute';
+    
+    muteButton.addEventListener('click', function() {
+        if(toggleMute(displayName)) {
+            this.style.backgroundColor = '';
+            this.innerHTML = 'Mute';
+        } else {
+            this.style.backgroundColor = '#faf1c0';
+            this.innerHTML = 'Unmute';
+        }
+    });
 
     nameBlock.appendChild(muteButton);
 
 }
 
-function mute(displayName) {
-    if($BLOCK_LIST.indexOf(displayName) == -1) {
+//returns true if after toggling the user is not muted
+function toggleMute(displayName) {
+    var index = $BLOCK_LIST.indexOf(displayName);
+    if(index > -1) {
+        $BLOCK_LIST.splice(index, 1);
+        return true;
+    } else {
         $BLOCK_LIST.push(displayName);
+        return false;
     }
 }
 
