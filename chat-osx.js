@@ -16,7 +16,7 @@ function addChatBlock(body, insertOnTop) {
     newDiv.innerHTML = body;
     newDiv = newDiv.firstChild;
     var nameBlock = newDiv.getElementsByClassName('nameBlock')[0];
-    var name = nameBlock.getElementsByTagName('a').length > 0 ? nameBlock.getElementsByTagName('a')[0].innerHTML : null;
+    var name = nameBlock.getElementsByTagName('a').length > 0 ? nameBlock.getElementsByTagName('a')[0].getAttribute('href') : null;
     if($BLOCK_LIST.indexOf(name) < 0) {
         if(newDiv.className.indexOf('me') == -1 && name != null) {
             showMuteButton(nameBlock, name);
@@ -39,7 +39,7 @@ function addChatBlock(body, insertOnTop) {
     
 }
 
-function showMuteButton(nameBlock, displayName) {
+function showMuteButton(nameBlock, hipchatId) {
 
     var muteButton = document.createElement('a');
     muteButton.setAttribute('class', 'atTag'); 
@@ -47,7 +47,7 @@ function showMuteButton(nameBlock, displayName) {
     muteButton.innerHTML = 'Mute';
     
     muteButton.addEventListener('click', function() {
-        if(toggleMute(displayName)) {
+        if(toggleMute(hipchatId)) {
             this.style.backgroundColor = '';
             this.innerHTML = 'Mute';
         } else {
@@ -61,13 +61,13 @@ function showMuteButton(nameBlock, displayName) {
 }
 
 //returns true if after toggling the user is not muted
-function toggleMute(displayName) {
-    var index = $BLOCK_LIST.indexOf(displayName);
+function toggleMute(hipchatId) {
+    var index = $BLOCK_LIST.indexOf(hipchatId);
     if(index > -1) {
         $BLOCK_LIST.splice(index, 1);
         return true;
     } else {
-        $BLOCK_LIST.push(displayName);
+        $BLOCK_LIST.push(hipchatId);
         return false;
     }
 }
